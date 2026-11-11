@@ -4,23 +4,26 @@ const image = (id: string, width = 900) => `https://images.unsplash.com/${id}?au
 const video = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/';
 
 export const HERO_MOVIE: Movie = {
-  id: 'cyberpunk-sombra',
-  title: 'CYBERPUNK: PROTOCOLO SOMBRA',
-  subtitle: 'Misión Cibernética: Madrid',
+  id: 'star-wars-episodio-3',
+  title: 'Star Wars: Episodio III – La venganza de los Sith',
   type: 'movie',
-  description: 'En un neo-Madrid distópico dominado por mega-corporaciones neuro-sintéticas, un ex-analista descubre un algoritmo clandestino capaz de hackear voluntades colectivas antes del colapso global.',
-  year: 2024,
-  rating: '16+',
-  durationOrSeasons: '2 h 24 min',
+  description:
+    'Mientras la República libra las últimas batallas de las Guerras Clon, Anakin Skywalker teme perder a Padmé. Palpatine aprovecha ese miedo para acercarlo al lado oscuro.',
+  year: 2005,
+  rating: 'PG-13',
+  durationOrSeasons: '2 h 20 min',
   matchRate: 98,
-  qualityBadges: ['4K ULTRA HD', 'DOLBY ATMOS'],
-  genres: ['Ciencia ficción', 'Acción', 'Ciberpunk'],
-  cast: ['Alejandro Silva', 'Elena Rostova', 'Kenji Sato', 'Mia Davenport'],
-  director: 'Carlos Montero',
+  qualityBadges: [],
+  genres: ['Ciencia ficción', 'Aventura'],
+  cast: ['Hayden Christensen', 'Ewan McGregor', 'Natalie Portman'],
+  director: 'George Lucas',
+
+  // Recursos provisionales del proyecto.
   backdropUrl: image('photo-1542751371-adc38448a05e', 1920),
   thumbnailUrl: image('photo-1578632767115-351597cf2477', 600),
   videoUrl: `${video}TearsOfSteel.mp4`,
-  topBadge: '#1 en películas en España',
+
+  topBadge: 'Película destacada',
 };
 
 const catalogMovie = (movie: Omit<Movie, 'backdropUrl' | 'thumbnailUrl'> & { imageId: string }): Movie => ({
