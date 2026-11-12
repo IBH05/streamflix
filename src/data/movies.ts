@@ -20,12 +20,9 @@ export const HERO_MOVIE: Movie = {
   genres: ['Ciencia ficción', 'Aventura'],
   cast: ['Hayden Christensen', 'Ewan McGregor', 'Natalie Portman'],
   director: 'George Lucas',
-
-
-  backdropUrl: image('photo-1542751371-adc38448a05e', 1920),
-  thumbnailUrl: image('photo-1578632767115-351597cf2477', 600),
+  backdropUrl: '/imagenes/star-wars-3.jpeg',
+  thumbnailUrl: '/imagenes/star-wars-3.jpeg',
   videoUrl: `${video}TearsOfSteel.mp4`,
-
   topBadge: 'Película destacada',
 };
 
@@ -35,8 +32,12 @@ const catalogMovie = (
   }
 ): Movie => ({
   ...movie,
-  backdropUrl: image(movie.imageId),
-  thumbnailUrl: image(movie.imageId, 700),
+  backdropUrl: movie.imageId.startsWith('/')
+    ? movie.imageId
+    : image(movie.imageId),
+  thumbnailUrl: movie.imageId.startsWith('/')
+    ? movie.imageId
+    : image(movie.imageId, 700),
 });
 
 export const CATALOG: { category: string; movies: Movie[] }[] = [
@@ -57,7 +58,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Acción', 'Crimen'],
         cast: ['Christian Bale', 'Michael Caine', 'Cillian Murphy'],
         director: 'Christopher Nolan',
-        imageId: 'photo-1486406146926-c627a92ad1ab',
+        imageId: '/imagenes/batman-inicia.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -74,7 +75,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Acción', 'Crimen'],
         cast: ['Christian Bale', 'Heath Ledger', 'Aaron Eckhart'],
         director: 'Christopher Nolan',
-        imageId: 'photo-1503899036084-c55cdd92da26',
+        imageId: '/imagenes/batman-caballero.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -91,7 +92,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Acción', 'Drama'],
         cast: ['Christian Bale', 'Tom Hardy', 'Anne Hathaway'],
         director: 'Christopher Nolan',
-        imageId: 'photo-1519608487953-e999c86e7455',
+        imageId: '/imagenes/batman-asciende.jpeg',
         videoUrl: '',
       }),
     ],
@@ -113,7 +114,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Animación', 'Aventura'],
         cast: ['Anthony Gonzalez', 'Gael García Bernal', 'Benjamin Bratt'],
         director: 'Lee Unkrich',
-        imageId: 'photo-1511671782779-c97d3d27a1d4',
+        imageId: '/imagenes/coco.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -130,7 +131,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Comedia', 'Aventura'],
         cast: ['Ralph Fiennes', 'Tony Revolori', 'Saoirse Ronan'],
         director: 'Wes Anderson',
-        imageId: 'photo-1486406146926-c627a92ad1ab',
+        imageId: '/imagenes/hotel-budapest.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -147,7 +148,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Acción', 'Aventura'],
         cast: ['Tom Hardy', 'Charlize Theron', 'Nicholas Hoult'],
         director: 'George Miller',
-        imageId: 'photo-1507525428034-b723cf961d3e',
+        imageId: '/imagenes/mad-max.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -164,7 +165,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Animación', 'Fantasía'],
         cast: ['Rumi Hiiragi', 'Miyu Irino', 'Mari Natsuki'],
         director: 'Hayao Miyazaki',
-        imageId: 'photo-1503899036084-c55cdd92da26',
+        imageId: '/imagenes/chihiro.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -181,7 +182,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Terror', 'Suspenso'],
         cast: ['Daniel Kaluuya', 'Allison Williams', 'Catherine Keener'],
         director: 'Jordan Peele',
-        imageId: 'photo-1518709268805-4e9042af9f23',
+        imageId: '/imagenes/huye.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -198,7 +199,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Musical', 'Romance'],
         cast: ['Emma Stone', 'Ryan Gosling', 'John Legend'],
         director: 'Damien Chazelle',
-        imageId: 'photo-1511671782779-c97d3d27a1d4',
+        imageId: '/imagenes/la-la-land.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -215,7 +216,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Suspenso', 'Drama'],
         cast: ['Song Kang-ho', 'Choi Woo-shik', 'Park So-dam'],
         director: 'Bong Joon-ho',
-        imageId: 'photo-1486406146926-c627a92ad1ab',
+        imageId: '/imagenes/parasitos.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -232,13 +233,12 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Drama', 'Deportes'],
         cast: ['Matt Damon', 'Christian Bale', 'Jon Bernthal'],
         director: 'James Mangold',
-        imageId: 'photo-1542751371-adc38448a05e',
+        imageId: '/imagenes/ford-vs-ferrari.jpeg',
         videoUrl: '',
       }),
     ],
   },
   {
-    
     category: 'Series para disfrutar',
     movies: [
       catalogMovie({
@@ -255,7 +255,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Crimen', 'Drama'],
         cast: ['Bryan Cranston', 'Aaron Paul', 'Anna Gunn'],
         director: 'Varios directores',
-        imageId: 'photo-1507525428034-b723cf961d3e',
+        imageId:  '/imagenes/breaking-bad.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -272,7 +272,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Ciencia ficción', 'Misterio'],
         cast: ['Millie Bobby Brown', 'Finn Wolfhard', 'Winona Ryder'],
         director: 'Varios directores',
-        imageId: 'photo-1519608487953-e999c86e7455',
+        imageId: '/imagenes/stranger-things.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -289,7 +289,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Drama', 'Historia'],
         cast: ['Hiroyuki Sanada', 'Cosmo Jarvis', 'Anna Sawai'],
         director: 'Varios directores',
-        imageId: 'photo-1503899036084-c55cdd92da26',
+        imageId: '/imagenes/shogun.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -306,7 +306,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Animación', 'Fantasía'],
         cast: ['Hailee Steinfeld', 'Ella Purnell', 'Kevin Alejandro'],
         director: 'Varios directores',
-        imageId: 'photo-1519608487953-e999c86e7455',
+        imageId: '/imagenes/arcane.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -323,7 +323,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Drama', 'Comedia'],
         cast: ['Jeremy Allen White', 'Ayo Edebiri', 'Ebon Moss-Bachrach'],
         director: 'Varios directores',
-        imageId: 'photo-1486406146926-c627a92ad1ab',
+        imageId: '/imagenes/the-bear.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -340,7 +340,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Comedia'],
         cast: ['Steve Carell', 'Rainn Wilson', 'John Krasinski'],
         director: 'Varios directores',
-        imageId: 'photo-1486406146926-c627a92ad1ab',
+        imageId: '/imagenes/the-office.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -357,7 +357,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Anime', 'Acción', 'Fantasía'],
         cast: ['Junya Enoki', 'Yuichi Nakamura', 'Asami Seto'],
         director: 'Sunghoo Park',
-        imageId: 'photo-1578632767115-351597cf2477',
+        imageId: '/imagenes/jujutsu-kaisen.jpeg',
         videoUrl: '',
       }),
       catalogMovie({
@@ -374,7 +374,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Documental', 'Naturaleza'],
         cast: ['David Attenborough'],
         director: 'Varios directores',
-        imageId: 'photo-1451187580459-43490279c0fa',
+        imageId: '/imagenes/nuestro-planeta.jpeg',
         videoUrl: '',
       }),
     ],
