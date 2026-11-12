@@ -374,7 +374,7 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         genres: ['Documental', 'Naturaleza'],
         cast: ['David Attenborough'],
         director: 'Varios directores',
-        imageId: '/imagenes/nuestro-planeta.jpeg',
+        imageId: '/imagenes/nuestroo-planeta.jpeg',
         videoUrl: '',
       }),
     ],
