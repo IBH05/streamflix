@@ -1,5 +1,10 @@
 node_modules/
+playwright-report/
+test-results/
 dist/
+.next/
+out/
+*.tsbuildinfo
 .git-local/
 .env
 .env.*

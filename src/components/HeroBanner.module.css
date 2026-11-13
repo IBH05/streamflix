@@ -1,0 +1,48 @@
+.favoriteButton {
+  width: 3rem;
+  overflow: hidden;
+  transition: width 350ms ease, background-color 200ms ease, border-color 200ms ease, transform 200ms ease;
+}
+
+.favoriteExpanded {
+  width: 14rem;
+}
+
+.favoriteLabel {
+  max-width: 0;
+  margin-left: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: max-width 350ms ease, margin-left 350ms ease, opacity 200ms ease;
+}
+
+.favoriteExpanded .favoriteLabel {
+  max-width: 11rem;
+  margin-left: 0.5rem;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .favoriteButton,
+  .favoriteLabel {
+    transition: none;
+  }
+}
+
+.trailer {
+  object-fit: cover;
+  object-position: var(--hero-position-mobile);
+  transform: scale(var(--hero-zoom-mobile));
+  transform-origin: var(--hero-position-mobile);
+}
+
+@media (min-width: 768px) {
+  .trailer {
+    object-position: var(--hero-position);
+    transform: scale(var(--hero-zoom));
+    transform-origin: var(--hero-position);
+  }
+}

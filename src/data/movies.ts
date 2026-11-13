@@ -1,13 +1,15 @@
 import type { Movie } from '../types/movie';
-
-const image = (id: string, width = 900) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=84`;
-
-const video =
-  'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/';
+import { trailer } from './trailers';
+import { seasonsForSeries } from './series';
 
 export const HERO_MOVIE: Movie = {
   id: 'star-wars-episodio-3',
+  ...trailer('starWars'),
+  heroTrailerFraming: {
+    zoom: 1.35,
+    position: '50% 50%',
+    mobile: { zoom: 1.05, position: '50% 50%' },
+  },
   title: 'Star Wars: Episodio III – La venganza de los Sith',
   type: 'movie',
   description:
@@ -22,23 +24,25 @@ export const HERO_MOVIE: Movie = {
   director: 'George Lucas',
   backdropUrl: '/imagenes/star-wars-3.jpeg',
   thumbnailUrl: '/imagenes/star-wars-3.jpeg',
-  videoUrl: `${video}TearsOfSteel.mp4`,
-  topBadge: 'Película destacada',
 };
 
 const catalogMovie = (
   movie: Omit<Movie, 'backdropUrl' | 'thumbnailUrl'> & {
     imageId: string;
   }
-): Movie => ({
-  ...movie,
-  backdropUrl: movie.imageId.startsWith('/')
-    ? movie.imageId
-    : image(movie.imageId),
-  thumbnailUrl: movie.imageId.startsWith('/')
-    ? movie.imageId
-    : image(movie.imageId, 700),
-});
+): Movie => {
+  const seasons = movie.type === 'series' ? seasonsForSeries(movie.id) : undefined;
+  const { imageId, ...details } = movie;
+  return {
+    ...details,
+    seasons,
+    ...(seasons ? {
+      durationOrSeasons: `${seasons.length} ${seasons.length === 1 ? 'temporada' : 'temporadas'} · ${seasons.reduce((total, season) => total + season.episodeCount, 0)} episodios`,
+    } : {}),
+    backdropUrl: imageId,
+    thumbnailUrl: imageId,
+  };
+};
 
 export const CATALOG: { category: string; movies: Movie[] }[] = [
   {
@@ -59,7 +63,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Christian Bale', 'Michael Caine', 'Cillian Murphy'],
         director: 'Christopher Nolan',
         imageId: '/imagenes/batman-inicia.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'batman-el-caballero-de-la-noche',
@@ -76,7 +79,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Christian Bale', 'Heath Ledger', 'Aaron Eckhart'],
         director: 'Christopher Nolan',
         imageId: '/imagenes/batman-caballero.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'batman-el-caballero-de-la-noche-asciende',
@@ -93,7 +95,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Christian Bale', 'Tom Hardy', 'Anne Hathaway'],
         director: 'Christopher Nolan',
         imageId: '/imagenes/batman-asciende.jpeg',
-        videoUrl: '',
       }),
     ],
   },
@@ -115,7 +116,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Tom Holland', 'Zendaya', 'Sadie Sink'],
         director: 'Destin Daniel Cretton',
         imageId: '/imagenes/spiderman-un-nuevo-dia.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'dahmer',
@@ -132,7 +132,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Evan Peters', 'Niecy Nash', 'Richard Jenkins'],
         director: 'Varios directores',
         imageId: '/imagenes/dahmer.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'mad-max-furia-en-el-camino',
@@ -149,7 +148,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Tom Hardy', 'Charlize Theron', 'Nicholas Hoult'],
         director: 'George Miller',
         imageId: '/imagenes/mad-max.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'el-viaje-de-chihiro',
@@ -166,7 +164,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Rumi Hiiragi', 'Miyu Irino', 'Mari Natsuki'],
         director: 'Hayao Miyazaki',
         imageId: '/imagenes/chihiro.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'huye',
@@ -183,7 +180,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Daniel Kaluuya', 'Allison Williams', 'Catherine Keener'],
         director: 'Jordan Peele',
         imageId: '/imagenes/huye.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'la-la-land',
@@ -200,7 +196,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Emma Stone', 'Ryan Gosling', 'John Legend'],
         director: 'Damien Chazelle',
         imageId: '/imagenes/la-la-land.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'parasitos',
@@ -217,7 +212,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Song Kang-ho', 'Choi Woo-shik', 'Park So-dam'],
         director: 'Bong Joon-ho',
         imageId: '/imagenes/parasitos.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'ford-vs-ferrari',
@@ -234,7 +228,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Matt Damon', 'Christian Bale', 'Jon Bernthal'],
         director: 'James Mangold',
         imageId: '/imagenes/ford-vs-ferrari.jpeg',
-        videoUrl: '',
       }),
     ],
   },
@@ -256,7 +249,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Bryan Cranston', 'Aaron Paul', 'Anna Gunn'],
         director: 'Varios directores',
         imageId:  '/imagenes/breaking-bad.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'stranger-things',
@@ -273,7 +265,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Millie Bobby Brown', 'Finn Wolfhard', 'Winona Ryder'],
         director: 'Varios directores',
         imageId: '/imagenes/stranger-things.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'shogun',
@@ -290,7 +281,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Hiroyuki Sanada', 'Cosmo Jarvis', 'Anna Sawai'],
         director: 'Varios directores',
         imageId: '/imagenes/shogun.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'arcane',
@@ -307,7 +297,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Hailee Steinfeld', 'Ella Purnell', 'Kevin Alejandro'],
         director: 'Varios directores',
         imageId: '/imagenes/arcane.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'the-bear',
@@ -324,7 +313,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Jeremy Allen White', 'Ayo Edebiri', 'Ebon Moss-Bachrach'],
         director: 'Varios directores',
         imageId: '/imagenes/the-bear.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'the-office',
@@ -341,7 +329,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Steve Carell', 'Rainn Wilson', 'John Krasinski'],
         director: 'Varios directores',
         imageId: '/imagenes/the-office.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'jujutsu-kaisen',
@@ -358,7 +345,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['Junya Enoki', 'Yuichi Nakamura', 'Asami Seto'],
         director: 'Sunghoo Park',
         imageId: '/imagenes/jujutsu-kaisen.jpeg',
-        videoUrl: '',
       }),
       catalogMovie({
         id: 'nuestro-planeta',
@@ -375,7 +361,6 @@ export const CATALOG: { category: string; movies: Movie[] }[] = [
         cast: ['David Attenborough'],
         director: 'Varios directores',
         imageId: '/imagenes/nuestroo-planeta.jpeg',
-        videoUrl: '',
       }),
     ],
   },

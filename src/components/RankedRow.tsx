@@ -1,6 +1,7 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useRef } from 'react';
+import { useId } from 'react';
 import type { Movie } from '../types/movie';
+import { useCarousel } from '../hooks/useCarousel';
+import { CarouselControls } from './CarouselControls';
 
 interface RankedRowProps {
   title: string;
@@ -9,27 +10,21 @@ interface RankedRowProps {
 }
 
 export function RankedRow({ title, movies, onMoreInfo }: RankedRowProps) {
-  const rowRef = useRef<HTMLDivElement>(null);
-  const scroll = (amount: number) => rowRef.current?.scrollBy({ left: amount, behavior: 'smooth' });
+  const rowId = useId();
+  const { rowRef, canPrevious, canNext, scroll } = useCarousel(movies.length);
 
   return (
-    <section className="group/rank-row flex flex-col gap-3">
-      <div className="flex items-center justify-between">
-        <button onClick={() => rowRef.current?.scrollTo({ left: 0, behavior: 'smooth' })} className="flex items-center gap-2 text-left">
-          <h2 className="font-heading text-xl font-bold tracking-tight text-white md:text-2xl">{title}</h2>
-          <span className="material-symbols-outlined text-gray-400 transition-transform group-hover/rank-row:translate-x-1">chevron_right</span>
-        </button>
-        <div className="flex items-center gap-1">
-          <button aria-label="Anterior" onClick={() => scroll(-450)} className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"><ChevronLeft className="h-4 w-4" /></button>
-          <button aria-label="Siguiente" onClick={() => scroll(450)} className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"><ChevronRight className="h-4 w-4" /></button>
-        </div>
+    <section aria-label={title} className="flex min-w-0 flex-col gap-3">
+      <div className="flex items-center justify-between gap-3">
+        <h2 className="min-w-0 font-heading text-lg font-bold tracking-tight text-white md:text-2xl">{title}</h2>
+        <CarouselControls title={title} controls={rowId} canPrevious={canPrevious} canNext={canNext} onScroll={scroll} />
       </div>
 
-      <div ref={rowRef} className="scrollbar-hide flex items-center gap-5 overflow-x-auto pb-4 pt-1">
+      <div id={rowId} ref={rowRef} role="group" aria-label={`Carrusel de ${title}`} tabIndex={0} className="scrollbar-hide flex snap-x snap-mandatory items-center gap-4 overflow-x-auto overscroll-x-contain rounded-xl pb-4 pt-1 focus-visible:outline focus-visible:outline-white">
         {movies.map((movie, index) => (
-          <button key={movie.id} onClick={() => onMoreInfo(movie)} className="group/rank flex shrink-0 items-center text-left">
+          <button key={movie.id} onClick={() => onMoreInfo(movie)} className="group/rank flex shrink-0 snap-start items-center text-left">
             <span className="relative z-10 -mr-7 select-none font-heading text-[110px] font-black leading-none text-transparent transition-all group-hover/rank:text-brand md:text-[130px]" style={{ WebkitTextStroke: '3px #444' }}>{index + 1}</span>
-            <div className="relative aspect-[2/3] w-44 overflow-hidden rounded-2xl border border-white/10 bg-surface-card shadow-xl transition-transform duration-300 group-hover/rank:scale-105 md:w-52">
+            <div className="relative aspect-[2/3] w-36 overflow-hidden rounded-2xl border border-white/10 bg-surface-card shadow-xl transition-transform duration-300 sm:w-44 md:w-52">
               <img src={movie.thumbnailUrl} alt={movie.title} loading="lazy" className="h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
               <span className="absolute right-2 top-2 rounded-full bg-primary px-2 py-0.5 font-heading text-[10px] font-extrabold uppercase text-white">Top 10</span>

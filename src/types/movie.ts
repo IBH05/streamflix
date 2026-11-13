@@ -1,3 +1,13 @@
+export interface SeriesSeason {
+  number: number;
+  episodeCount: number;
+}
+
+export interface EpisodeSelection {
+  season: number;
+  episode: number;
+}
+
 export interface Movie {
   id: string;
   title: string;
@@ -7,6 +17,7 @@ export interface Movie {
   year: number;
   rating: string;
   durationOrSeasons: string;
+  seasons?: SeriesSeason[];
   matchRate: number;
   qualityBadges: string[];
   genres: string[];
@@ -14,8 +25,14 @@ export interface Movie {
   director: string;
   backdropUrl: string;
   thumbnailUrl: string;
-  videoUrl: string;
-  topBadge?: string;
+  trailerUrl?: string;
+  trailerStartSeconds?: number;
+  /** Framing used only by the homepage hero trailer. Zoom 1 means no extra crop. */
+  heroTrailerFraming?: {
+    zoom: number;
+    position: string;
+    mobile?: { zoom: number; position: string };
+  };
   awardBadge?: string;
   progressPercent?: number;
   remainingTime?: string;
