@@ -11,6 +11,7 @@ import { MovieDetailsModal } from './components/MovieDetailsModal';
 import { Navbar } from './components/Navbar';
 import { RankedRow } from './components/RankedRow';
 import { VideoPlayer } from './components/VideoPlayer';
+import PlatformsBanner from './components/PlatformsBanner';
 import type { EpisodeSelection, Movie } from './types/movie';
 import { canWatch, PROFILE_KEY, type Profile } from './data/profiles';
 
@@ -102,6 +103,7 @@ export function App() {
             {ranking.length > 0 && <RankedRow title="Top 10 en Películas y Series" movies={ranking} onMoreInfo={showDetails} />}
             {sections[1].movies.length > 0 && <ContentRow title={sections[1].category} movies={sections[1].movies} id="peliculas" onMoreInfo={showDetails} favorites={activeFavorites} onToggleFavorite={toggleFavorite} />}
             {sections[2].movies.length > 0 && <ContentRow title={sections[2].category} movies={sections[2].movies} id="series" onMoreInfo={showDetails} favorites={activeFavorites} onToggleFavorite={toggleFavorite} />}
+            {profile === 'adult' && <PlatformsBanner />}
             {activeFavorites.length > 0 ? <ContentRow title={`Mi Lista (${activeFavorites.length})`} movies={activeFavorites} id="milista" onMoreInfo={showDetails} favorites={activeFavorites} onToggleFavorite={toggleFavorite} /> : <section id="milista" className="rounded-xl border border-white/10 p-6"><h2 className="font-heading text-lg font-bold">Mi Lista</h2><p className="mt-2 text-sm text-neutral-400">Añade tus favoritos para encontrarlos aquí.</p></section>}
           </main>
         </>

@@ -16,6 +16,7 @@ tráilers locales, también al seleccionar episodios.
 - Reproductor con volumen, progreso y pantalla completa.
 - Mi Lista y perfiles Adulto y Kids guardados en el navegador.
 - PIN parental para volver al perfil Adulto.
+- Sección de plataformas externas antes de Mi Lista, disponible en el perfil Adulto.
 
 Los recuentos de temporadas y episodios se mantienen manualmente, sin APIs.
 Consulta las [fuentes y convenciones del catálogo](docs/series-catalog.md).
