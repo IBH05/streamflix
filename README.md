@@ -7,10 +7,10 @@ Plataforma de streaming cinematográfica desarrollada con React, TypeScript, Vit
 - Catálogo de películas y series.
 - Hero principal y carruseles de contenido.
 - Sección Top 10.
-- Búsqueda por título, descripción y género.
+- Búsqueda por título (sin distinguir acentos) combinada con el filtro Todos, Películas y Series.
 - Modal con detalles de cada película.
-- Reproductor de video con controles, volumen y pantalla completa.
-- Mi Lista guardada en `localStorage`.
+- Reproductor de tráileres con controles, volumen y pantalla completa. Solo se abre en los títulos que tienen clip; en los demás se muestra su ficha.
+- Mi Lista guardada en `localStorage`, con un mensaje cuando queda vacía.
 
 ## Requisitos
 
