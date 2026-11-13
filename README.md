@@ -6,6 +6,10 @@ Catálogo interactivo de 20 películas y series, desarrollado con Next.js, React
 TypeScript y Tailwind CSS. Primera versión de demostración: la reproducción utiliza
 tráilers locales, también al seleccionar episodios.
 
+![Representación visual de StreamFlix en escritorio, tablet y móvil](public/streamflix.png)
+
+*Ilustración representativa del proyecto.*
+
 ## Funcionalidades
 
 - Portadas destacadas y carruseles con navegación táctil, teclado y flechas.

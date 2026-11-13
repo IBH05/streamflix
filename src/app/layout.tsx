@@ -5,6 +5,13 @@ import '../index.css';
 export const metadata: Metadata = {
   title: 'StreamFlix — Inicio y catálogo cinematográfico',
   description: 'Explora películas y series, descubre novedades y guarda tus favoritos en StreamFlix.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
+      { url: '/icon.svg', sizes: 'any', type: 'image/svg+xml' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+  },
 };
 
 export const viewport: Viewport = { themeColor: '#0b0b0b' };
